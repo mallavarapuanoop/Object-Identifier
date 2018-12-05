@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03151C6D21B885F900E33E93 /* SqueezeNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 03151C6C21B885F800E33E93 /* SqueezeNet.mlmodel */; };
 		0322971621B85EE3000201B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322971521B85EE3000201B7 /* AppDelegate.swift */; };
 		0322971821B85EE3000201B7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322971721B85EE3000201B7 /* ViewController.swift */; };
 		0322971B21B85EE3000201B7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0322971921B85EE3000201B7 /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		03151C6C21B885F800E33E93 /* SqueezeNet.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = SqueezeNet.mlmodel; sourceTree = "<group>"; };
 		0322971221B85EE3000201B7 /* OB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0322971521B85EE3000201B7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0322971721B85EE3000201B7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -39,6 +41,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		03151C6E21B8867D00E33E93 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				03151C6C21B885F800E33E93 /* SqueezeNet.mlmodel */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		0322970921B85EE3000201B7 = {
 			isa = PBXGroup;
 			children = (
@@ -58,6 +68,7 @@
 		0322971421B85EE3000201B7 /* OB */ = {
 			isa = PBXGroup;
 			children = (
+				03151C6E21B8867D00E33E93 /* Resources */,
 				0322972921B865B7000201B7 /* Controller */,
 				0322972821B865B4000201B7 /* Model */,
 				0322972721B865B2000201B7 /* View */,
@@ -167,6 +178,7 @@
 			files = (
 				0322972D21B869DE000201B7 /* RoundedImageView.swift in Sources */,
 				0322971821B85EE3000201B7 /* ViewController.swift in Sources */,
+				03151C6D21B885F900E33E93 /* SqueezeNet.mlmodel in Sources */,
 				0322971621B85EE3000201B7 /* AppDelegate.swift in Sources */,
 				0322972B21B86877000201B7 /* RoundedShadowView.swift in Sources */,
 			);

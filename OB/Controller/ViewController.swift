@@ -9,6 +9,8 @@
 import UIKit
 import AVFoundation
 //AVFoundation - Work with audiovisual assets, control device cameras, process audio, and configure system audio interactions.
+import CoreML
+import Vision
 
 class ViewController: UIViewController {
 
@@ -17,8 +19,6 @@ class ViewController: UIViewController {
     var previewLayer: AVCaptureVideoPreviewLayer!
     
     var photoData: Data?
-    
-    
     
     @IBOutlet weak var roundedLblView: RoundedShadowView!
     
@@ -101,8 +101,28 @@ class ViewController: UIViewController {
         
         cameraOutput.capturePhoto(with: settings, delegate: self)
         
+    }
+    
+    func resultsMethod(request: VNRequest, error: Error?){
+        //changing label text
+        
+        guard let results = request.results as? [VNClassificationObservation] else{return}
+        
+        for classification in results {
+            //print(classification.identifier)
+            if classification.confidence < 0.5 {
+                self.identificationLabel.text = "I am not sure what this is, please try again"
+                self.confidenceLabel.text = ""
+                break
+            }else{
+                self.identificationLabel.text = classification.identifier
+                self.confidenceLabel.text = "Confidence: \(Int(classification.confidence * 100))%"
+                break
+            }
+        }
         
     }
+    
     
 }
 
@@ -116,6 +136,17 @@ extension ViewController: AVCapturePhotoCaptureDelegate {
         }else {
             
             photoData = photo.fileDataRepresentation()
+            
+            do{
+                let model = try VNCoreMLModel(for: SqueezeNet().model)
+                let request = VNCoreMLRequest(model: model, completionHandler: resultsMethod)
+                let handler = VNImageRequestHandler(data: photoData!)
+                
+                try handler.perform([request])
+                
+            }catch{
+                debugPrint(error)
+            }
             
             let image = UIImage(data: photoData!)
             self.captureImageview.image = image

@@ -42,6 +42,9 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        cameraPreviewAdded()
+    }
+    func cameraPreviewAdded(){
         captureSession = AVCaptureSession()
         captureSession.sessionPreset = AVCaptureSession.Preset.hd1920x1080
         
@@ -71,10 +74,7 @@ class ViewController: UIViewController {
             
             debugPrint(error)
         }
-        
-        
     }
-
-
+    
 }
 

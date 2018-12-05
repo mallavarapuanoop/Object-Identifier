@@ -16,6 +16,10 @@ class ViewController: UIViewController {
     var cameraOutput: AVCapturePhotoOutput!
     var previewLayer: AVCaptureVideoPreviewLayer!
     
+    var photoData: Data?
+    
+    
+    
     @IBOutlet weak var roundedLblView: RoundedShadowView!
     
     @IBOutlet weak var cameraView: UIView!
@@ -44,7 +48,10 @@ class ViewController: UIViewController {
         super.viewWillAppear(animated)
         cameraPreviewAdded()
     }
+    
+    //MARK: Adding camera video preview
     func cameraPreviewAdded(){
+        creatingTapRecogniser()
         captureSession = AVCaptureSession()
         captureSession.sessionPreset = AVCaptureSession.Preset.hd1920x1080
         
@@ -76,5 +83,43 @@ class ViewController: UIViewController {
         }
     }
     
+    func creatingTapRecogniser(){
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapCameraView))
+        tap.numberOfTapsRequired = 1
+        
+        cameraView.addGestureRecognizer(tap)
+    }
+    
+    
+    @objc func didTapCameraView(){
+        
+        let settings = AVCapturePhotoSettings()
+        let previewPixelType = settings.availablePreviewPhotoPixelFormatTypes.first!
+        let previewFormat = [kCVPixelBufferPixelFormatTypeKey as String: previewPixelType, kCVPixelBufferWidthKey as String: 160, kCVPixelBufferHeightKey as String: 160]
+        
+        settings.previewPhotoFormat = previewFormat
+        
+        cameraOutput.capturePhoto(with: settings, delegate: self)
+        
+        
+    }
+    
 }
 
+
+
+extension ViewController: AVCapturePhotoCaptureDelegate {
+    
+    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+        if let error = error{
+            debugPrint(error)
+        }else {
+            
+            photoData = photo.fileDataRepresentation()
+            
+            let image = UIImage(data: photoData!)
+            self.captureImageview.image = image
+        }
+        
+    }
+}

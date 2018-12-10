@@ -9,6 +9,8 @@
 import UIKit
 import AVFoundation
 //AVFoundation - Work with audiovisual assets, control device cameras, process audio, and configure system audio interactions.
+import CoreML
+import Vision
 
 class ViewController: UIViewController {
 
@@ -18,6 +20,7 @@ class ViewController: UIViewController {
     
     var photoData: Data?
     
+    var speechSynthesizer = AVSpeechSynthesizer()
     
     
     @IBOutlet weak var roundedLblView: RoundedShadowView!
@@ -41,7 +44,7 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         previewLayer.frame = cameraView.bounds
-        
+        speechSynthesizer.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -101,8 +104,43 @@ class ViewController: UIViewController {
         
         cameraOutput.capturePhoto(with: settings, delegate: self)
         
+    }
+    
+    func resultsMethod(request: VNRequest, error: Error?){
+        //changing label text
+        
+        guard let results = request.results as? [VNClassificationObservation] else{return}
+        
+        for classification in results {
+            //print(classification.identifier)
+            if classification.confidence < 0.5 {
+                let unknownObjectMessage = "I am not sure what this is, please try again"
+                self.identificationLabel.text = unknownObjectMessage
+                self.confidenceLabel.text = ""
+                synthesizeSpeech(fromString: unknownObjectMessage)
+                break
+            }else{
+                let identification = classification.identifier
+                let confidence = Int(classification.confidence * 100)
+                self.identificationLabel.text = identification
+                self.confidenceLabel.text = "Confidence: \(confidence)%"
+                
+                let completeSetence = "This looks like a \(identification), i am \(confidence) percent sure."
+                synthesizeSpeech(fromString: completeSetence)
+                break
+            }
+        }
         
     }
+    
+    func synthesizeSpeech(fromString string: String){
+        
+        let speechUtterence = AVSpeechUtterance(string: string)
+        
+        speechSynthesizer.speak(speechUtterence)
+        
+    }
+    
     
 }
 
@@ -117,9 +155,28 @@ extension ViewController: AVCapturePhotoCaptureDelegate {
             
             photoData = photo.fileDataRepresentation()
             
+            do{
+                let model = try VNCoreMLModel(for: SqueezeNet().model)
+                let request = VNCoreMLRequest(model: model, completionHandler: resultsMethod)
+                let handler = VNImageRequestHandler(data: photoData!)
+                
+                try handler.perform([request])
+                
+            }catch{
+                debugPrint(error)
+            }
+            
             let image = UIImage(data: photoData!)
             self.captureImageview.image = image
         }
         
+    }
+}
+
+
+extension ViewController: AVSpeechSynthesizerDelegate{
+    
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        //code
     }
 }

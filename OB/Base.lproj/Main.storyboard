@@ -25,17 +25,21 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fwp-GK-qv9" customClass="RoundedShadowView" customModule="OB" customModuleProvider="target">
                                 <rect key="frame" x="10" y="30" width="355" height="70"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="guS-OQ-hg5">
-                                        <rect key="frame" x="8" y="8" width="326" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Displays Item Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="guS-OQ-hg5">
+                                        <rect key="frame" x="10" y="2" width="335" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="vd3-KQ-PQV"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="sub title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M2w-FC-ouE">
-                                        <rect key="frame" x="8" y="29" width="326" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confidence" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M2w-FC-ouE">
+                                        <rect key="frame" x="10" y="48" width="335" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="Cbb-lm-lO4"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -43,6 +47,12 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="7G4-5Q-J7L"/>
+                                    <constraint firstAttribute="trailing" secondItem="guS-OQ-hg5" secondAttribute="trailing" constant="10" id="CzG-23-nzf"/>
+                                    <constraint firstAttribute="trailing" secondItem="M2w-FC-ouE" secondAttribute="trailing" constant="10" id="KIA-rk-A3J"/>
+                                    <constraint firstItem="guS-OQ-hg5" firstAttribute="top" secondItem="Fwp-GK-qv9" secondAttribute="top" constant="2" id="LKx-Ec-Pdx"/>
+                                    <constraint firstItem="M2w-FC-ouE" firstAttribute="leading" secondItem="Fwp-GK-qv9" secondAttribute="leading" constant="10" id="ZFT-Nj-GXb"/>
+                                    <constraint firstItem="guS-OQ-hg5" firstAttribute="leading" secondItem="Fwp-GK-qv9" secondAttribute="leading" constant="10" id="ccn-SX-3zy"/>
+                                    <constraint firstAttribute="bottom" secondItem="M2w-FC-ouE" secondAttribute="bottom" constant="2" id="z0k-uG-o53"/>
                                 </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GNT-9s-dNn" customClass="RoundedImageView" customModule="OB" customModuleProvider="target">
